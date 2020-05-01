@@ -37,7 +37,7 @@ const (
 	RPAREN   = ")"
 	LBRACE   = "{"
 	RBRACE   = "}"
-	LBRACKET = "]"
+	LBRACKET = "["
 	RBRACKET = "]"
 
 	// Keyword
