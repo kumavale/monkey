@@ -3,6 +3,7 @@ package evaluator
 import (
 	"fmt"
 	"monkey/object"
+	"os"
 )
 
 var builtins = map[string]*object.Builtin{
@@ -100,6 +101,24 @@ var builtins = map[string]*object.Builtin{
 		Fn: func(args ...object.Object) object.Object {
 			for _, arg := range args {
 				fmt.Println(arg.Inspect())
+			}
+
+			return NULL
+		},
+	},
+	"exit": &object.Builtin{
+		Fn: func(args ...object.Object) object.Object {
+			if 1 < len(args) {
+				return newError("wrong number of arguments. got=%d, want=1", len(args))
+			}
+			if len(args) == 1 {
+				if args[0].Type() != object.INTEGER_OBJ {
+					return newError("argument to `exit` must be INTEGER, got %s", args[0].Type())
+				}
+				code := args[0].(*object.Integer)
+				os.Exit(int(code.Value))
+			} else {
+				os.Exit(0)
 			}
 
 			return NULL

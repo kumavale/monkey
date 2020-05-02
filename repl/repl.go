@@ -20,7 +20,7 @@ func Start(in io.Reader, out io.Writer) {
 		fmt.Printf(PROMPT)
 		scanned := scanner.Scan()
 
-		if !scanned || scanner.Text() == "exit" {
+		if !scanned {
 			return
 		}
 

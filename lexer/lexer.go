@@ -146,12 +146,26 @@ func (l *Lexer) peekChar() byte {
 }
 
 func (l *Lexer) readString() string {
-	position := l.position + 1
+	str := ""
 	for {
 		l.readChar()
-		if l.ch == '"' || l.ch == 0 {
-			break
+		switch l.ch {
+		case 0, '"':
+			return str
+		case '\\':
+			l.readChar()
+			switch l.ch {
+			case '\'':
+				str = str + "'"
+			case '"':
+				str = str + "\""
+			case '\\':
+				str = str + "\\"
+			default:
+				str = str + "\\" + string(l.ch)
+			}
+		default:
+			str = str + string(l.ch)
 		}
 	}
-	return l.input[position:l.position]
 }
