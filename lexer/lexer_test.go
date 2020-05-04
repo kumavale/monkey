@@ -32,6 +32,7 @@ if (5 < 10) {
 {"foo": "bar"}
 "\"\'\\"
 macro(x, y) { x + y; };
+while(true){}
 `
 
 	tests := []struct {
@@ -138,6 +139,12 @@ macro(x, y) { x + y; };
 		{token.SEMICOLON, ";"},
 		{token.RBRACE, "}"},
 		{token.SEMICOLON, ";"},
+		{token.WHILE, "while"},
+		{token.LPAREN, "("},
+		{token.TRUE, "true"},
+		{token.RPAREN, ")"},
+		{token.LBRACE, "{"},
+		{token.RBRACE, "}"},
 		{token.EOF, ""},
 	}
 
